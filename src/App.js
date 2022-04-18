@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import Header from './components/Header'
+import ReviewStats from './components/ReviewStats'
+import ReviewList from './components/ReviewList'
+import ReviewForm from './components/ReviewForm'
+import AboutPage from './pages/AboutPage'
+import { ReviewProvider } from './context/ReviewContext'
+import AboutIconLink from './components/AboutIconLink'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+      <ReviewProvider>
+        <Router>
+          <Header />
+          <div className="container">
+            <Routes>
+              <Route exact path='/' element={
+                <>
+                  <ReviewForm />
+                  <ReviewStats />
+                  <ReviewList />
+                </>
+              }>
+              </Route>
+              <Route path='/about' element={<AboutPage />} />
+            </Routes>
+            <AboutIconLink />
+          </div>
+        </Router>
+        </ReviewProvider>
+    )
 }
 
-export default App;
+export default App
